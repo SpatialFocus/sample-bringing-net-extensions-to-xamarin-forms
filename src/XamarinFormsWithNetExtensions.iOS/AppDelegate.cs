@@ -24,7 +24,7 @@ namespace XamarinFormsWithNetExtensions.iOS
 		{
 			Forms.SetFlags("CollectionView_Experimental");
 			Forms.Init();
-			LoadApplication(new App());
+			LoadApplication(new App(Setup.Configuration));
 
 			return base.FinishedLaunching(app, options);
 		}

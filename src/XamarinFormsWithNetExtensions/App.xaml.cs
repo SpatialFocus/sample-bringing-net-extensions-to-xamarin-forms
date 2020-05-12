@@ -4,14 +4,24 @@
 
 namespace XamarinFormsWithNetExtensions
 {
+	using System;
+	using Microsoft.Extensions.Configuration;
 	using Xamarin.Forms;
 	using XamarinFormsWithNetExtensions.Services;
 
 	public partial class App : Application
 	{
-		public App()
+		public App(Action<ConfigurationBuilder> configuration)
 		{
 			InitializeComponent();
+
+			IConfigurationRoot configurationRoot = Setup.Configuration
+				.ConfigureNetStandardProject()
+				.ConfigurePlatformProject(configuration)
+				.Build();
+
+			// TODO: Store configuration root, bind configuration to concrete classes, ...
+			string value = configurationRoot["Key2"];
 
 			DependencyService.Register<MockDataStore>();
 			MainPage = new AppShell();
