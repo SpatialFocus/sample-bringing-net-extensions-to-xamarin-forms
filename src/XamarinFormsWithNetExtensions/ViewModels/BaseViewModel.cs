@@ -8,19 +8,23 @@ namespace XamarinFormsWithNetExtensions.ViewModels
 	using System.Collections.Generic;
 	using System.ComponentModel;
 	using System.Runtime.CompilerServices;
-	using Xamarin.Forms;
 	using XamarinFormsWithNetExtensions.Models;
 	using XamarinFormsWithNetExtensions.Services;
 
-	public class BaseViewModel : INotifyPropertyChanged
+	public class BaseViewModel : INotifyPropertyChanged, IPageLifeCycleAware
 	{
 		private bool isBusy = false;
 
 		private string title = string.Empty;
 
+		public BaseViewModel(IDataStore<Item> dataStore)
+		{
+			DataStore = dataStore;
+		}
+
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
+		public IDataStore<Item> DataStore { get; }
 
 		public bool IsBusy
 		{
@@ -32,6 +36,14 @@ namespace XamarinFormsWithNetExtensions.ViewModels
 		{
 			get { return this.title; }
 			set { SetProperty(ref this.title, value); }
+		}
+
+		public virtual void OnAppearing()
+		{
+		}
+
+		public virtual void OnDisappearing()
+		{
 		}
 
 		protected void OnPropertyChanged([CallerMemberName] string propertyName = "")

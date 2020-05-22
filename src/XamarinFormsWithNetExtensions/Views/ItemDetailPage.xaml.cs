@@ -29,7 +29,7 @@ namespace XamarinFormsWithNetExtensions.Views
 
 			Item item = new Item { Text = "Item 1", Description = "This is an item description." };
 
-			this.viewModel = new ItemDetailViewModel(item);
+			this.viewModel = Shell.Current.ServiceProvider().GetRequiredServiceWithParameters<ItemDetailViewModel>(item);
 			BindingContext = this.viewModel;
 		}
 	}

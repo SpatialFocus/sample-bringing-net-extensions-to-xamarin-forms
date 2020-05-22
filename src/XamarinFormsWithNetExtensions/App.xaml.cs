@@ -6,12 +6,12 @@ namespace XamarinFormsWithNetExtensions
 {
 	using System;
 	using Microsoft.Extensions.Configuration;
+	using Microsoft.Extensions.DependencyInjection;
 	using Xamarin.Forms;
-	using XamarinFormsWithNetExtensions.Services;
 
 	public partial class App : Application
 	{
-		public App(Action<ConfigurationBuilder> configuration)
+		public App(Action<ConfigurationBuilder> configuration, Action<IServiceCollection, IConfigurationRoot> dependencyServiceConfiguration)
 		{
 			InitializeComponent();
 
@@ -20,11 +20,12 @@ namespace XamarinFormsWithNetExtensions
 				.ConfigurePlatformProject(configuration)
 				.Build();
 
-			// TODO: Store configuration root, bind configuration to concrete classes, ...
-			string value = configurationRoot["Key2"];
+			IServiceProvider serviceProvider = Setup.DependencyInjection
+				.ConfigureNetStandardProject(configurationRoot)
+				.ConfigurePlatformProject(configurationRoot, dependencyServiceConfiguration)
+				.BuildServiceProvider();
 
-			DependencyService.Register<MockDataStore>();
-			MainPage = new AppShell();
+			MainPage = new AppShell(serviceProvider);
 		}
 
 		protected override void OnResume()

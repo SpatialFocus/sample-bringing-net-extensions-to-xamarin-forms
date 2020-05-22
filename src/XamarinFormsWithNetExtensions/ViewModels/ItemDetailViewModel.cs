@@ -5,10 +5,11 @@
 namespace XamarinFormsWithNetExtensions.ViewModels
 {
 	using XamarinFormsWithNetExtensions.Models;
+	using XamarinFormsWithNetExtensions.Services;
 
 	public class ItemDetailViewModel : BaseViewModel
 	{
-		public ItemDetailViewModel(Item item = null)
+		public ItemDetailViewModel(IDataStore<Item> dateStore, Item item = null) : base(dateStore)
 		{
 			Title = item?.Text;
 			Item = item;

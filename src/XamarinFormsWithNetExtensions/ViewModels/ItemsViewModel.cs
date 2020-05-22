@@ -11,11 +11,12 @@ namespace XamarinFormsWithNetExtensions.ViewModels
 	using System.Threading.Tasks;
 	using Xamarin.Forms;
 	using XamarinFormsWithNetExtensions.Models;
+	using XamarinFormsWithNetExtensions.Services;
 	using XamarinFormsWithNetExtensions.Views;
 
 	public class ItemsViewModel : BaseViewModel
 	{
-		public ItemsViewModel()
+		public ItemsViewModel(IDataStore<Item> dataStore) : base(dataStore)
 		{
 			Title = "Browse";
 			Items = new ObservableCollection<Item>();

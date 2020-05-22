@@ -33,7 +33,7 @@ namespace XamarinFormsWithNetExtensions.Droid
 			Forms.SetFlags("CollectionView_Experimental");
 			Platform.Init(this, savedInstanceState);
 			Forms.Init(this, savedInstanceState);
-			LoadApplication(new App(Setup.Configuration));
+			LoadApplication(new App(Setup.Configuration, Setup.DependencyInjection));
 		}
 	}
 }

@@ -6,6 +6,7 @@ namespace XamarinFormsWithNetExtensions.Views
 {
 	using System;
 	using System.ComponentModel;
+	using Microsoft.Extensions.DependencyInjection;
 	using Xamarin.Forms;
 	using XamarinFormsWithNetExtensions.Models;
 	using XamarinFormsWithNetExtensions.ViewModels;
@@ -15,35 +16,39 @@ namespace XamarinFormsWithNetExtensions.Views
 	[DesignTimeVisible(false)]
 	public partial class ItemsPage : ContentPage
 	{
-		private readonly ItemsViewModel viewModel;
-
 		public ItemsPage()
 		{
 			InitializeComponent();
 
-			BindingContext = this.viewModel = new ItemsViewModel();
+			// Since the page is created by DI, BindingContext will be automatically set
+			////BindingContext = this.viewModel = new ItemsViewModel();
 		}
+
+		protected ItemsViewModel ViewModel => BindingContext as ItemsViewModel;
 
 		protected override void OnAppearing()
 		{
 			base.OnAppearing();
 
-			if (this.viewModel.Items.Count == 0)
+			if (ViewModel.Items.Count == 0)
 			{
-				this.viewModel.IsBusy = true;
+				ViewModel.IsBusy = true;
 			}
 		}
 
 		private async void AddItem_Clicked(object sender, EventArgs e)
 		{
-			await Navigation.PushModalAsync(new NavigationPage(new NewItemPage()));
+			await Navigation.PushModalAsync(Shell.Current.ServiceProvider().GetRequiredService<NewItemPage>());
 		}
 
 		private async void OnItemSelected(object sender, EventArgs args)
 		{
 			BindableObject layout = (BindableObject)sender;
 			Item item = (Item)layout.BindingContext;
-			await Navigation.PushAsync(new ItemDetailPage(new ItemDetailViewModel(item)));
+
+			// Let the page be created by our custom RouteFactory
+			await Shell.Current.GoToAsync($"ItemDetail?id={item.Id}");
+			////await Navigation.PushAsync(new ItemDetailPage(Shell.Current.ServiceProvider().GetRequiredServiceWithParameters<ItemDetailViewModel>(item)));
 		}
 	}
 }

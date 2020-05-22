@@ -6,6 +6,7 @@ namespace XamarinFormsWithNetExtensions.Droid
 {
 	using System;
 	using Microsoft.Extensions.Configuration;
+	using Microsoft.Extensions.DependencyInjection;
 	using Microsoft.Extensions.FileProviders;
 
 	public class Setup
@@ -15,6 +16,11 @@ namespace XamarinFormsWithNetExtensions.Droid
 			{
 				builder.AddJsonFile(new EmbeddedFileProvider(typeof(Setup).Assembly, typeof(Setup).Namespace), "appsettings.json", false,
 					false);
+			};
+
+		public static Action<IServiceCollection, IConfigurationRoot> DependencyInjection =>
+			(serviceCollection, configurationRoot) =>
+			{
 			};
 	}
 }
