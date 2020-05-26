@@ -78,7 +78,7 @@ namespace XamarinFormsWithNetExtensions
 		{
 			return serviceCollection.AddTransient<TView>(serviceProvider =>
 			{
-				TView view = serviceProvider.GetRequiredService<TView>();
+				TView view = ActivatorUtilities.CreateInstance<TView>(serviceProvider);
 
 				// Autobind specified view model
 				view.BindingContext = serviceProvider.GetRequiredService<TViewModel>();
@@ -94,7 +94,7 @@ namespace XamarinFormsWithNetExtensions
 		{
 			return serviceCollection.AddTransient<TView>(serviceProvider =>
 			{
-				TView view = serviceProvider.GetRequiredService<TView>();
+				TView view = ActivatorUtilities.CreateInstance<TView>(serviceProvider);
 
 				view.Appearing += (sender, args) => (((BindableObject)sender).BindingContext as IPageLifeCycleAware)?.OnAppearing();
 				view.Disappearing += (sender, args) => (((BindableObject)sender).BindingContext as IPageLifeCycleAware)?.OnDisappearing();
