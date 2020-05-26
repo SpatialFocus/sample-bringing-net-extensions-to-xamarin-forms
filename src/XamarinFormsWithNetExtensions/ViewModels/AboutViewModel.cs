@@ -5,6 +5,7 @@
 namespace XamarinFormsWithNetExtensions.ViewModels
 {
 	using System.Windows.Input;
+	using Microsoft.Extensions.Logging;
 	using Xamarin.Essentials;
 	using Xamarin.Forms;
 	using XamarinFormsWithNetExtensions.Models;
@@ -12,10 +13,12 @@ namespace XamarinFormsWithNetExtensions.ViewModels
 
 	public class AboutViewModel : BaseViewModel
 	{
-		public AboutViewModel(IDataStore<Item> dataStore) : base(dataStore)
+		public AboutViewModel(IDataStore<Item> dataStore, ILogger<AboutViewModel> logger) : base(dataStore)
 		{
 			Title = "About";
 			OpenWebCommand = new Command(async () => await Browser.OpenAsync("https://xamarin.com"));
+
+			logger.LogWarning($"Hello from {nameof(AboutViewModel)}");
 		}
 
 		public ICommand OpenWebCommand { get; }

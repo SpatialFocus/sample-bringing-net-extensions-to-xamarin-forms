@@ -8,6 +8,7 @@ namespace XamarinFormsWithNetExtensions
 	using Microsoft.Extensions.Configuration;
 	using Microsoft.Extensions.DependencyInjection;
 	using Microsoft.Extensions.FileProviders;
+	using Serilog;
 	using Xamarin.Forms;
 	using XamarinFormsWithNetExtensions.Models;
 	using XamarinFormsWithNetExtensions.Services;
@@ -38,6 +39,15 @@ namespace XamarinFormsWithNetExtensions
 				.AddView<NewItemPage>();
 
 			return serviceCollection;
+		}
+
+		public static IServiceCollection ConfigureLogging(this IServiceCollection serviceCollection, IConfigurationRoot configurationRoot)
+		{
+			return serviceCollection.AddLogging(builder =>
+			{
+				builder.AddSerilog(new LoggerConfiguration().ReadFrom.Configuration(configurationRoot.GetSection("Logging"))
+					.CreateLogger());
+			});
 		}
 
 		public static ConfigurationBuilder ConfigureNetStandardProject(this ConfigurationBuilder builder)
