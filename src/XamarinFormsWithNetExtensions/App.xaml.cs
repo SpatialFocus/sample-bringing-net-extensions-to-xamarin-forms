@@ -22,6 +22,7 @@ namespace XamarinFormsWithNetExtensions
 
 			IServiceProvider serviceProvider = Setup.DependencyInjection
 				.ConfigureLogging(configurationRoot)
+				.ConfigureLocalization(configurationRoot)
 				.ConfigureNetStandardProject(configurationRoot)
 				.ConfigurePlatformProject(configurationRoot, dependencyServiceConfiguration)
 				.BuildServiceProvider();

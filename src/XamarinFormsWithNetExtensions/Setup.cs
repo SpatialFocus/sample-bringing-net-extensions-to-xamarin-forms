@@ -50,6 +50,14 @@ namespace XamarinFormsWithNetExtensions
 			});
 		}
 
+		public static IServiceCollection ConfigureLocalization(this IServiceCollection serviceCollection, IConfigurationRoot configurationRoot)
+		{
+			return serviceCollection.AddLocalization(options =>
+			{
+				options.ResourcesPath = configurationRoot.GetSection("Localization")["ResourcesPath"];
+			});
+		}
+
 		public static ConfigurationBuilder ConfigureNetStandardProject(this ConfigurationBuilder builder)
 		{
 			builder.AddJsonFile(new EmbeddedFileProvider(typeof(Setup).Assembly), "appsettings.json", false, false);

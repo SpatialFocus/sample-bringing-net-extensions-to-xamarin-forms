@@ -4,7 +4,9 @@
 	xmlns:d="http://xamarin.com/schemas/2014/forms/design"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
 	x:Class="XamarinFormsWithNetExtensions.Views.AboutPage"
-	xmlns:vm="clr-namespace:XamarinFormsWithNetExtensions.ViewModels" Title="{Binding Title}">
+	xmlns:vm="clr-namespace:XamarinFormsWithNetExtensions.ViewModels"
+	xmlns:i18n="clr-namespace:XamarinFormsWithNetExtensions;assembly=XamarinFormsWithNetExtensions"
+	Title="{Binding Title}">
 
 	<ContentPage.Resources>
 		<ResourceDictionary>
@@ -32,7 +34,7 @@
 					<Label.FormattedText>
 						<FormattedString>
 							<FormattedString.Spans>
-								<Span Text="AppName" FontAttributes="Bold" FontSize="22" />
+								<Span Text="{i18n:Translate AppName}" FontAttributes="Bold" FontSize="22" />
 								<Span Text=" " />
 								<Span Text="1.0" ForegroundColor="{StaticResource LightTextColor}" />
 							</FormattedString.Spans>

@@ -9,6 +9,7 @@ namespace XamarinFormsWithNetExtensions.ViewModels
 	using System.Collections.ObjectModel;
 	using System.Diagnostics;
 	using System.Threading.Tasks;
+	using Microsoft.Extensions.Localization;
 	using Xamarin.Forms;
 	using XamarinFormsWithNetExtensions.Models;
 	using XamarinFormsWithNetExtensions.Services;
@@ -16,9 +17,9 @@ namespace XamarinFormsWithNetExtensions.ViewModels
 
 	public class ItemsViewModel : BaseViewModel
 	{
-		public ItemsViewModel(IDataStore<Item> dataStore) : base(dataStore)
+		public ItemsViewModel(IDataStore<Item> dataStore, IStringLocalizer<ItemsViewModel> localizer) : base(dataStore)
 		{
-			Title = "Browse";
+			Title = localizer["Title"];
 			Items = new ObservableCollection<Item>();
 			LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
