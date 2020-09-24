@@ -46,9 +46,9 @@ namespace XamarinFormsWithNetExtensions.Views
 			BindableObject layout = (BindableObject)sender;
 			Item item = (Item)layout.BindingContext;
 
-			// Let the page be created by our custom RouteFactory
-			await Shell.Current.GoToAsync($"ItemDetail?id={item.Id}");
-			////await Navigation.PushAsync(new ItemDetailPage(Shell.Current.ServiceProvider().GetRequiredServiceWithParameters<ItemDetailViewModel>(item)));
+			// Let the page be created by our custom RouteFactory (would require QueryProperty on ItemDetailPage, passing id and item retrieval within view model)
+			////await Shell.Current.GoToAsync($"ItemDetail?id={item.Id}");
+			await Navigation.PushAsync(new ItemDetailPage(Shell.Current.ServiceProvider().GetRequiredServiceWithParameters<ItemDetailViewModel>(item)));
 		}
 	}
 }
